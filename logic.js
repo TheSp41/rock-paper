@@ -1,4 +1,30 @@
 let humanScore=0,computerScore=0;
+const hscore=document.createElement("div");
+const cscore=document.createElement("div");
+const rock=document.querySelector("#rock");
+const paper=document.querySelector("#paper");
+const scissor=document.querySelector("#scissor");
+const mdiv=document.querySelector("#scores");
+function update(){
+    hscore.textContent="Human score is "+humanScore;
+    cscore.textContent="Computer score is "+computerScore;
+    hscore.style["color"]="black";
+    cscore.style["color"]="black";
+}
+function stopper(){
+    rock.disabled=true;
+    paper.disabled=true;
+    scissor.disabled=true;
+    const ender=document.createElement("div");
+    let winner="Computer";
+    if(humanScore>computerScore){
+        winner="You";
+    }
+    ender.textContent=winner+" won!!!";
+    ender.style["text-align"]="center";
+    ender.style["font-weight"]="bold";
+    mdiv.appendChild(ender);
+}
 function getComputerChoice(){
     let num=Math.random();
     if(num<1/3){
@@ -9,11 +35,6 @@ function getComputerChoice(){
     }
     else return "scissor";
 }
-// function getHumanChoice(){
-//     let choice=prompt("Enter your choice from rock, paper or scissor");
-//     choice=choice.toLowerCase();
-//     return choice;
-// }
 function playRound(computerChoice,humanChoice){
     if(computerChoice==humanChoice){
         alert("Computer choice was also "+ computerChoice+", its a draw");
@@ -48,15 +69,21 @@ function playRound(computerChoice,humanChoice){
             humanScore++;
         }
     }
+    if(humanScore>=5 || computerScore>=5) stopper();
+    update();
 }
 
 function playGame(){
-    const rock=document.querySelector("#rock");
-    const paper=document.querySelector("#paper");
-    const scissor=document.querySelector("#scissor");
+    if(humanScore<5 && computerScore<5){
     rock.addEventListener("click",()=>playRound(getComputerChoice(),"rock"));
     paper.addEventListener("click",()=>playRound(getComputerChoice(),"paper"));
     scissor.addEventListener("click",()=>playRound(getComputerChoice(),"scissor"));
-    
+}
+    hscore.style["text-align"]="center";
+    cscore.style["text-align"]="center";
+    mdiv.appendChild(hscore);
+    mdiv.appendChild(cscore);
+    update();
+    if(humanScore>=5 || computerScore>=5) stopper();
 }
 playGame();
