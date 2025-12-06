@@ -9,52 +9,54 @@ function getComputerChoice(){
     }
     else return "scissor";
 }
-function getHumanChoice(){
-    let choice=prompt("Enter your choice from rock, paper or scissor");
-    choice=choice.toLowerCase();
-    return choice;
-}
+// function getHumanChoice(){
+//     let choice=prompt("Enter your choice from rock, paper or scissor");
+//     choice=choice.toLowerCase();
+//     return choice;
+// }
 function playRound(computerChoice,humanChoice){
     if(computerChoice==humanChoice){
-        console.log("Computer choice was also", computerChoice,", its a draw");
+        alert("Computer choice was also "+ computerChoice+", its a draw");
     }
     else if(computerChoice=="paper"){
         if(humanChoice=="rock"){
-            console.log("You lose! Paper beats rock");
+            alert("You lose! Paper beats rock");
             computerScore++;
         }
         else{
-            console.log("You win! scissor beats paper");
+            alert("You win! scissor beats paper");
             humanScore++;
         }
     }
      else if(computerChoice=="rock"){
         if(humanChoice=="scissor"){
-            console.log("You lose! rock beats scissor");
+            alert("You lose! rock beats scissor");
             computerScore++;
         }
         else{
-            console.log("You win! paper beats rock");
+            alert("You win! paper beats rock");
             humanScore++;
         }
     }
     else{
         if(humanChoice=="paper"){
-            console.log("You lose! scissor beats paper");
+            alert("You lose! scissor beats paper");
             computerScore++;
         }
         else{
-            console.log("You win! scissor beats paper");
+            alert("You win! scissor beats paper");
             humanScore++;
         }
     }
 }
+
 function playGame(){
-    for(let i=0;i<5;i++){
-    playRound(getComputerChoice(),getHumanChoice());
-    }
-    if(humanScore>computerScore) console.log("Congrats!You won");
-    else if(humanScore<computerScore) console.log("Oops! You lost ");
-    else console.log("Well! Thats a draw");
+    const rock=document.querySelector("#rock");
+    const paper=document.querySelector("#paper");
+    const scissor=document.querySelector("#scissor");
+    rock.addEventListener("click",()=>playRound(getComputerChoice(),"rock"));
+    paper.addEventListener("click",()=>playRound(getComputerChoice(),"paper"));
+    scissor.addEventListener("click",()=>playRound(getComputerChoice(),"scissor"));
+    
 }
 playGame();
